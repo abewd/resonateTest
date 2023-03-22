@@ -15,9 +15,6 @@ function toCustomBase64(number, length) {
   }
   return result;
 }
-
-// The rest of the code remains the same
-
 // Convert a custom base64 string back to a decimal number
 function fromCustomBase64(str) {
   // Run through each character in the string
