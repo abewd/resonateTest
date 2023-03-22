@@ -94,11 +94,11 @@ function RunTests() {
       $("#test-results").append(
         "<div>" + storeId + " - " + transactionId + ": " + shortCode + "</div>"
       );
-      AddTestResult("Length <= 9", shortCode.length <= 9);
-      AddTestResult("Is String", typeof shortCode === "string");
-      AddTestResult("Is Today", IsToday(decodeResult.shopDate));
-      AddTestResult("StoreId", storeId === decodeResult.storeId);
-      AddTestResult("TransId", transactionId === decodeResult.transactionId);
+      AddTestResult("Length <= 9 ", shortCode.length <= 9);
+      AddTestResult("Is String ", typeof shortCode === "string");
+      AddTestResult("Is Today ", IsToday(decodeResult.shopDate));
+      AddTestResult("StoreId ", storeId === decodeResult.storeId);
+      AddTestResult("TransId ", transactionId === decodeResult.transactionId);
     });
   });
 }
