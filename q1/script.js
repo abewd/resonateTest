@@ -6,15 +6,17 @@ const customBase64Chars =
 function toCustomBase64(number, length) {
   let result = "";
   // Repeat the loop using a while
-  while (length--) {
+  for (let i = 0; i < length; i++) {
     // number divided by 64, use that number as an index to access corresponding
     // characters from base64, round it up so its a whole number and not a decimal
     // append character to result
-    result += customBase64Chars[number % 64];
+    result = customBase64Chars[number % 64] + result;
     number = Math.floor(number / 64);
   }
   return result;
 }
+
+// The rest of the code remains the same
 
 // Convert a custom base64 string back to a decimal number
 function fromCustomBase64(str) {
