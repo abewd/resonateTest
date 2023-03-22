@@ -106,8 +106,10 @@ function RunTests() {
 function IsToday(inputDate) {
   // Get today's date
   var todaysDate = new Date();
-  // call setHours to take the time out of the comparison
-  return inputDate.setHours(0, 0, 0, 0) == todaysDate.setHours(0, 0, 0, 0);
+  // call setUTCHours to take the time out of the comparison
+  return (
+    inputDate.setUTCHours(0, 0, 0, 0) == todaysDate.setUTCHours(0, 0, 0, 0)
+  );
 }
 
 function AddTestResult(testName, testResult) {
