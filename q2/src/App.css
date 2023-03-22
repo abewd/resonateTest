@@ -12,7 +12,6 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
-/* App Styles */
 .App {
   text-align: center;
   max-width: 1200px;
@@ -88,7 +87,7 @@ body {
 }
 
 .User-item:hover h6 {
-  background-color: #4a4e56;
+  background-color: #2d2f32;
 }
 
 .User-item:before {
@@ -101,18 +100,18 @@ body {
   background-image: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0.6)
+    rgba(227, 225, 225, 0.6)
   );
   z-index: 1;
 }
 
-/* Add a smooth transition for hover effects */
+/* Add smooth transition for hover effects */
 a,
 button {
   transition: all 0.3s ease;
 }
 
-/* Button Styles */
+/* Button styling */
 button {
   background-color: #282c34;
   color: white;

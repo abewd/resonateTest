@@ -38,12 +38,12 @@ const App = () => {
           <div key={user.id} className="User-item">
             <h2>{user.name}</h2>
             <h5>&#9993; {user.email}</h5>
-            <h5>📍 {user.address.suite}</h5>
-            <h5>{user.address.street}</h5>
-            <h5>{user.address.city}</h5>
-            <h5>{user.address.zipcode}</h5>
+            <h5>
+              📍 {user.address.suite}, {user.address.street},{" "}
+              {user.address.city}, {user.address.zipcode}
+            </h5>
             <h5>📞 {user.phone}</h5>
-            <h5>🖥 {user.website}</h5>
+            <h5>🌐 {user.website}</h5>
             <h5>🏭 {user.company.name}</h5>
             <h6>User Id:{user.id}</h6>
           </div>
