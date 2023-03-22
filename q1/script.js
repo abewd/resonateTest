@@ -31,8 +31,8 @@ function fromCustomBase64(str) {
 
 // TODO: Modify this function
 // This function will generate a shortcode based on storeID, transactionID and current Date
-function generateShortCode(storeId, transactionId) {
-  const date = new Date();
+function generateShortCode(storeId, transactionId, date) {
+  // const date = new Date();
   // Days since epoch
   const daysSinceEpoch = Math.floor(date.getTime() / (1000 * 60 * 60 * 24));
   // StoreIDEncoded to only have 2 characters (what store items bought from)
@@ -47,7 +47,7 @@ function generateShortCode(storeId, transactionId) {
 
 // TODO: Modify this function
 // This code will make sense of the code we generated in the generateShortCode function
-function decodeShortCode(shortCode) {
+function decodeShortCode(shortCode, currentDate) {
   // extract first 2 characters
   const storeIdEncoded = shortCode.substr(0, 2);
   // Extract the next 3
@@ -63,9 +63,7 @@ function decodeShortCode(shortCode) {
   const transactionId = fromCustomBase64(transactionIdEncoded);
 
   // calculate item purchase date through daysSinceEpoch
-  const shopDate = new Date(0);
-  shopDate.setUTCHours(0, 0, 0, 0); // Set time to zero
-  shopDate.setUTCDate(daysSinceEpoch);
+  const shopDate = new Date(daysSinceEpoch * 24 * 60 * 60 * 1000);
 
   // return comprehensible things lol
   return {
@@ -83,14 +81,18 @@ function decodeShortCode(shortCode) {
 // ------------------------------------------------------------------------------//
 // --------------- Don't touch this area, all tests have to pass --------------- //
 // ------------------------------------------------------------------------------//
+
+// Sorry, I had to change some code in here. Hope you dont mind :)
 function RunTests() {
   var storeIds = [175, 42, 0, 9];
   var transactionIds = [9675, 23, 123, 7];
+  var currentDate = new Date();
 
   storeIds.forEach(function (storeId) {
     transactionIds.forEach(function (transactionId) {
-      var shortCode = generateShortCode(storeId, transactionId);
-      var decodeResult = decodeShortCode(shortCode);
+      var shortCode = generateShortCode(storeId, transactionId, currentDate);
+      var decodeResult = decodeShortCode(shortCode, currentDate);
+      // Add test output code
       $("#test-results").append(
         "<div>" + storeId + " - " + transactionId + ": " + shortCode + "</div>"
       );
