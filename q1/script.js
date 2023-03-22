@@ -1,3 +1,25 @@
+// Utilising BASE64 - Encoding binary data to a neater format
+const customBase64Chars =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-~";
+
+function toCustomBase64(number, length) {
+  let result = "";
+  while (length--) {
+    result += customBase64Chars[number % 64];
+    number = Math.floor(number / 64);
+  }
+  return result;
+}
+console.log(result);
+
+function fromCustomBase64(str) {
+  let result = 0;
+  for (let i = 0; i < str.length; i++) {
+    result = result * 64 + customBase64Chars.indexOf(str[i]);
+  }
+  return result;
+}
+
 // TODO: Modify this function
 function generateShortCode(storeId, transactionId) {
   // Logic goes here
