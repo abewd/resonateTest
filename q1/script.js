@@ -5,7 +5,7 @@ const customBase64Chars =
 // Convert a decimal to a Base64 string
 function toCustomBase64(number, length) {
   let result = "";
-  // Repeat the loop using a while
+  // Run through it using a for loop
   for (let i = 0; i < length; i++) {
     // number divided by 64, use that number as an index to access corresponding
     // characters from base64, round it up so its a whole number and not a decimal
@@ -23,7 +23,7 @@ function fromCustomBase64(str) {
   // Run through each character in the string
   let result = 0;
   for (let i = 0; i < str.length; i++) {
-    // multiply the index by 64 and then add it to the index
+    // Multiply the index by 64 and then add it to the index
     result = result * 64 + customBase64Chars.indexOf(str[i]);
   }
   return result;
@@ -37,9 +37,9 @@ function generateShortCode(storeId, transactionId, date) {
   const daysSinceEpoch = Math.floor(date.getTime() / (1000 * 60 * 60 * 24));
   // StoreIDEncoded to only have 2 characters (what store items bought from)
   const storeIdEncoded = toCustomBase64(storeId, 2);
-  // daysEncoded to only have 3 characters (date in days since epoch)
+  // DaysEncoded to only have 3 characters (date in days since epoch)
   const daysEncoded = toCustomBase64(daysSinceEpoch, 3);
-  // transactionIdEncoded to have 4 characters (transaction ID)
+  // TransactionIdEncoded to have 4 characters (transaction ID)
   const transactionIdEncoded = toCustomBase64(transactionId, 4);
   // Return a string with all the characters displayed together
   return storeIdEncoded + daysEncoded + transactionIdEncoded;
@@ -52,20 +52,20 @@ function decodeShortCode(shortCode, currentDate) {
   const storeIdEncoded = shortCode.substr(0, 2);
   // Extract the next 3
   const daysEncoded = shortCode.substr(2, 3);
-  // extract the final 4
+  // Extract the final 4
   const transactionIdEncoded = shortCode.substr(5, 4);
 
-  // return to decimal
+  // Return to decimal
   const storeId = fromCustomBase64(storeIdEncoded);
-  // return to decimal
+  // Return to decimal
   const daysSinceEpoch = fromCustomBase64(daysEncoded);
-  // return to decimal
+  // Return to decimal
   const transactionId = fromCustomBase64(transactionIdEncoded);
 
-  // calculate item purchase date through daysSinceEpoch
+  // Calculate item purchase date through daysSinceEpoch
   const shopDate = new Date(daysSinceEpoch * 24 * 60 * 60 * 1000);
 
-  // return comprehensible things lol
+  // Return comprehensible things lol
   return {
     storeId: storeId,
     shopDate: shopDate,
@@ -83,6 +83,7 @@ function decodeShortCode(shortCode, currentDate) {
 // ------------------------------------------------------------------------------//
 
 // Sorry, I had to change some code in here. Hope you dont mind :)
+// I edited it to include the test output code
 function RunTests() {
   var storeIds = [175, 42, 0, 9];
   var transactionIds = [9675, 23, 123, 7];
