@@ -7,7 +7,7 @@ function toCustomBase64(number, length) {
   let result = "";
   // Run through it using a for loop
   for (let i = 0; i < length; i++) {
-    // number divided by 64, use that number as an index to access corresponding
+    // Number divided by 64, use that number as an index to access corresponding
     // characters from base64, round it up so its a whole number and not a decimal
     // append character to result
     result = customBase64Chars[number % 64] + result;
