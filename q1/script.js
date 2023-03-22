@@ -1,42 +1,83 @@
-// Utilising BASE64 - Encoding binary data to a neater format
+// Utilising BASE64 - Encoding binary data
 const customBase64Chars =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-~";
 
+// Convert a decimal to a Base64 string
 function toCustomBase64(number, length) {
   let result = "";
+  // Repeat the loop using a while
   while (length--) {
+    // number divided by 64, use that number as an index to access corresponding
+    // characters from base64, round it up so its a whole number and not a decimal
+    // append character to result
     result += customBase64Chars[number % 64];
     number = Math.floor(number / 64);
   }
   return result;
 }
-console.log(result);
 
+// Convert a custom base64 string back to a decimal number
 function fromCustomBase64(str) {
+  // Run through each character in the string
   let result = 0;
   for (let i = 0; i < str.length; i++) {
+    // multiply the index by 64 and then add it to the index
     result = result * 64 + customBase64Chars.indexOf(str[i]);
   }
   return result;
 }
 
 // TODO: Modify this function
+// This function will generate a shortcode based on storeID, transactionID and current Date
 function generateShortCode(storeId, transactionId) {
-  // Logic goes here
-  return "ABCDEFGHI";
+  const date = new Date();
+  // Days since epoch
+  const daysSinceEpoch = Math.floor(date.getTime() / (1000 * 60 * 60 * 24));
+  // StoreIDEncoded to only have 2 characters (what store items bought from)
+  const storeIdEncoded = toCustomBase64(storeId, 2);
+  // daysEncoded to only have 3 characters (date in days since epoch)
+  const daysEncoded = toCustomBase64(daysSinceEpoch, 3);
+  // transactionIdEncoded to have 4 characters (transaction ID)
+  const transactionIdEncoded = toCustomBase64(transactionId, 4);
+  // Return a string with all the characters displayed together
+  return storeIdEncoded + daysEncoded + transactionIdEncoded;
 }
 
 // TODO: Modify this function
+// This code will make sense of the code we generated in the generateShortCode function
 function decodeShortCode(shortCode) {
-  // Logic goes here
+  // extract first 2 characters
+  const storeIdEncoded = shortCode.substr(0, 2);
+  // Extract the next 3
+  const daysEncoded = shortCode.substr(2, 3);
+  // extract the final 4
+  const transactionIdEncoded = shortCode.substr(5, 4);
 
+  // return to decimal
+  const storeId = fromCustomBase64(storeIdEncoded);
+  // return to decimal
+  const daysSinceEpoch = fromCustomBase64(daysEncoded);
+  // return to decimal
+  const transactionId = fromCustomBase64(transactionIdEncoded);
+
+  // calculate item purchase date through daysSinceEpoch
+  const shopDate = new Date(0);
+  shopDate.setUTCHours(0, 0, 0, 0); // Set time to zero
+  shopDate.setUTCDate(daysSinceEpoch);
+
+  // return comprehensible things lol
   return {
-    storeId: 0, // store id goes here,
-    shopDate: new Date(), // the date the customer shopped,
-    transactionId: 0, // transaction id goes here
+    storeId: storeId,
+    shopDate: shopDate,
+    transactionId: transactionId,
   };
 }
 
+//
+//
+//
+//
+//
 // ------------------------------------------------------------------------------//
 // --------------- Don't touch this area, all tests have to pass --------------- //
 // ------------------------------------------------------------------------------//
